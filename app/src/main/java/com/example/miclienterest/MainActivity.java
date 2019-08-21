@@ -9,8 +9,13 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +31,20 @@ public class MainActivity extends AppCompatActivity {
                 null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println(response.toString());
+                try {
+                    ArrayList<Signo> signos = new ArrayList();
+                    Signo aux;
+                    Gson gson = new Gson();
+                    JSONObject horoscopo = response.getJSONObject("horoscopo");
+                    Iterator<String> it = horoscopo.keys();
+                    while(it.hasNext()){
+                        aux = gson.fromJson(horoscopo.getJSONObject(it.next()).toString(),Signo.class);
+                        signos.add(aux);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         },null);
         queue.add(jr);
