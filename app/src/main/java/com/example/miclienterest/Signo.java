@@ -68,14 +68,6 @@ public class Signo {
 
     @Override
     public String toString() {
-        return "Signo{" +
-                "nombre='" + nombre + '\'' +
-                ", fechaSigno='" + fechaSigno + '\'' +
-                ", amor='" + amor + '\'' +
-                ", dinero='" + dinero + '\'' +
-                ", salud='" + salud + '\'' +
-                ", color='" + color + '\'' +
-                ", numero='" + numero + '\'' +
-                '}';
+        return nombre;
     }
 }
