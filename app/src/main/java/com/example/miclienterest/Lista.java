@@ -4,10 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,14 +18,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class Lista extends AppCompatActivity {
+
+    @BindView(R.id.lista) RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
-
-        final RecyclerView recyclerView = findViewById(R.id.lista);
+        ButterKnife.bind(this);
+        //final RecyclerView recyclerView = findViewById(R.id.lista);
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager llmanager = new LinearLayoutManager(this);
@@ -42,7 +44,7 @@ public class Lista extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    ArrayList<Signo> signos = new ArrayList();
+                    ArrayList<Signo> signos = new ArrayList<>();
                     Signo aux;
                     Gson gson = new Gson();
                     JSONObject horoscopo = response.getJSONObject("horoscopo");
@@ -51,7 +53,7 @@ public class Lista extends AppCompatActivity {
                         aux = gson.fromJson(horoscopo.getJSONObject(it.next()).toString(), Signo.class);
                         signos.add(aux);
                     }
-                    ListaAdapter myAdapter = new ListaAdapter(getApplicationContext(), signos);
+                    ListaAdapter myAdapter = new ListaAdapter(signos);
                     recyclerView.setAdapter(myAdapter);
 
                 } catch (JSONException e) {

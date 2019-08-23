@@ -5,19 +5,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder> {
 
     private List<Signo> items;
-    private Context context;
+    private Context ctx;
+    private ExpandableLayout anterior = null;
 
-    public ListaAdapter(Context context, List<Signo> items) {
-        this.context = context;
+    public ListaAdapter(List<Signo> items) {
         this.items= items;
     }
 
@@ -30,12 +36,15 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder itemsViewHolder, int i) {
 
         itemsViewHolder.vTitle.setText(items.get(i).getNombre());
+
+        itemsViewHolder.vTexto.setText(items.get(i).getAmor());
         itemsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemsViewHolder.ep.toggle(true);
-                //imprime el padre, en este caso el recyclerview
-                System.out.println(itemsViewHolder.itemView.getParent());
+            if(anterior!=null && anterior.isExpanded())
+                anterior.collapse();
+            anterior = itemsViewHolder.ep;
+            anterior.toggle();
             }
         });
 
@@ -46,18 +55,25 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(R.layout.item_lista, viewGroup, false);
-        return new MyViewHolder(itemView);
+        MyViewHolder mv = new MyViewHolder(itemView);
+
+        Glide.with(mv.itemView)
+                .load("https://bucket1.glanacion.com/anexos/fotos/12/3082812w1033.jpg")
+                .into(mv.img);
+        return mv;
+
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView vTitle;
-        protected ExpandableLayout ep;
+        @BindView(R.id.expandable_layout) ExpandableLayout ep;
+        @BindView(R.id.imagen) ImageView img;
+        @BindView(R.id.title) TextView vTitle;
+        @BindView(R.id.texto) TextView vTexto;
 
         public MyViewHolder(View v) {
             super(v);
-            ep = v.findViewById(R.id.expandable_layout);
-            vTitle = v.findViewById(R.id.title);
+            ButterKnife.bind(this,v);
         }
     }
 }
