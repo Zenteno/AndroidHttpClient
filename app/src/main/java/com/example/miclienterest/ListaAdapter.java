@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,11 +21,14 @@ import butterknife.ButterKnife;
 public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder> {
 
     private List<Signo> items;
-    private Context ctx;
     private ExpandableLayout anterior = null;
+    private ExpandableLayout costado;
+    private ExpandableLayout main;
 
-    public ListaAdapter(List<Signo> items) {
+    public ListaAdapter(List<Signo> items, ExpandableLayout costado, ExpandableLayout main) {
+        this.costado = costado;
         this.items= items;
+        this.main = main;
     }
 
     @Override
@@ -38,13 +42,28 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
         itemsViewHolder.vTitle.setText(items.get(i).getNombre());
 
         itemsViewHolder.vTexto.setText(items.get(i).getAmor());
+        Glide.with(itemsViewHolder.itemView.getContext())
+                .load("https://bucket1.glanacion.com/anexos/fotos/12/3082812w1033.jpg")
+                .into(itemsViewHolder.img);
+
         itemsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if(anterior!=null && anterior.isExpanded())
-                anterior.collapse();
-            anterior = itemsViewHolder.ep;
-            anterior.toggle();
+                if(anterior!=null && anterior.isExpanded())
+                    anterior.collapse();
+                if(anterior!=null && anterior.equals(itemsViewHolder.ep)){
+                    anterior = null;
+                    return;
+                }
+                anterior = itemsViewHolder.ep;
+                anterior.toggle(true);
+            }
+        });
+        itemsViewHolder.vTexto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                main.toggle(true);
+                costado.toggle(true);
             }
         });
 
@@ -56,10 +75,6 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
                 from(viewGroup.getContext()).
                 inflate(R.layout.item_lista, viewGroup, false);
         MyViewHolder mv = new MyViewHolder(itemView);
-
-        Glide.with(mv.itemView)
-                .load("https://bucket1.glanacion.com/anexos/fotos/12/3082812w1033.jpg")
-                .into(mv.img);
         return mv;
 
     }
