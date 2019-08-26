@@ -1,15 +1,15 @@
-package com.example.miclienterest;
+package com.example.miclienterest.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.miclienterest.R;
+import com.example.miclienterest.Signo;
 
 import net.cachapa.expandablelayout.ExpandableLayout;
 
@@ -20,21 +20,18 @@ import butterknife.ButterKnife;
 
 public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder> {
 
+    private View.OnClickListener mClickListener;
     private List<Signo> items;
-    private ExpandableLayout anterior = null;
-    private ExpandableLayout costado;
-    private ExpandableLayout main;
 
-    public ListaAdapter(List<Signo> items, ExpandableLayout costado, ExpandableLayout main) {
-        this.costado = costado;
+    public ListaAdapter(List<Signo> items) {
         this.items= items;
-        this.main = main;
     }
 
     @Override
     public int getItemCount() {
         return items.size();
     }
+
 
     @Override
     public void onBindViewHolder(final MyViewHolder itemsViewHolder, int i) {
@@ -46,26 +43,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
                 .load("https://bucket1.glanacion.com/anexos/fotos/12/3082812w1033.jpg")
                 .into(itemsViewHolder.img);
 
-        itemsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(anterior!=null && anterior.isExpanded())
-                    anterior.collapse();
-                if(anterior!=null && anterior.equals(itemsViewHolder.ep)){
-                    anterior = null;
-                    return;
-                }
-                anterior = itemsViewHolder.ep;
-                anterior.toggle(true);
-            }
-        });
-        itemsViewHolder.vTexto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                main.toggle(true);
-                costado.toggle(true);
-            }
-        });
+
 
     }
 
@@ -75,6 +53,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
                 from(viewGroup.getContext()).
                 inflate(R.layout.item_lista, viewGroup, false);
         MyViewHolder mv = new MyViewHolder(itemView);
+        mv.itemView.setOnClickListener(mClickListener);
         return mv;
 
     }
@@ -90,5 +69,9 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
             super(v);
             ButterKnife.bind(this,v);
         }
+    }
+
+    public void setClickListener(View.OnClickListener callback) {
+        mClickListener = callback;
     }
 }
