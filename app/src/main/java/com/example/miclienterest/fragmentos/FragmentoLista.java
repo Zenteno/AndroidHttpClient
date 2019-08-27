@@ -10,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.miclienterest.DaoSession;
+import com.example.miclienterest.MainActivity;
 import com.example.miclienterest.R;
+import com.example.miclienterest.Signo;
 import com.example.miclienterest.adapters.ListaAdapter;
-import com.example.miclienterest.utils.ArregloSigno;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +36,9 @@ public class FragmentoLista extends Fragment {
         llmanager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llmanager);
 
-        ListaAdapter myAdapter = new ListaAdapter(ArregloSigno.getArreglo());
+        DaoSession ds = MainActivity.daoSession;
+        ArrayList<Signo> signos = new ArrayList(ds.getSignoDao().loadAll());
+        ListaAdapter myAdapter = new ListaAdapter(signos);
         myAdapter.setClickListener(mClickListener);
         rv.setAdapter(myAdapter);
         return v;

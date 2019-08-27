@@ -20,8 +20,11 @@ public class DetailActivity extends AppCompatActivity {
             finish();
             return;
         }
+        Intent i = getIntent();
+        Long indice = i.getLongExtra("indice",1);
         FragmentManager fm = getSupportFragmentManager();
         FragmentoDetalle fd = new FragmentoDetalle();
+        fd.setIndice(indice);
         fm.beginTransaction().replace(R.id.texto_signo,fd).commit();
     }
 }

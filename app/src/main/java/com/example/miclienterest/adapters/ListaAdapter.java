@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide;
 import com.example.miclienterest.R;
 import com.example.miclienterest.Signo;
 
-import net.cachapa.expandablelayout.ExpandableLayout;
 
 import java.util.List;
 
@@ -37,6 +36,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder itemsViewHolder, int i) {
 
         itemsViewHolder.vTitle.setText(items.get(i).getNombre());
+        itemsViewHolder.itemView.setTag(items.get(i).getId());
     }
 
     @Override
