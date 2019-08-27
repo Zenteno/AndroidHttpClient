@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.miclienterest.fragmentos.FragmentoDetalle;
 import com.example.miclienterest.fragmentos.FragmentoLista;
+import com.example.miclienterest.provider.SignoProvider;
 import com.example.miclienterest.utils.MySingleton;
 import com.google.gson.Gson;
 
@@ -36,12 +37,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_principal);
-
         helper = new DaoMaster.DevOpenHelper(this, "notes-db", null);
         db = helper.getWritableDatabase();
         daoMaster = new DaoMaster(db);
 
         daoSession = daoMaster.newSession();
+        SignoProvider.daoSession = daoSession;
 
         fh = daoSession.getFechaDao()
                 .queryBuilder()
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         if(indice!=null)
             savedInstanceState.putLong("indice",indice);
     }
+
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailActivity"/>
+        <provider
+            android:name="com.example.miclienterest.provider.SignoProvider"
+            android:exported="true"
+            android:authorities="com.example.miclienterest" />
     </application>
 
 </manifest>

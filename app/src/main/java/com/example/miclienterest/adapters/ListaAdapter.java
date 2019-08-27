@@ -49,7 +49,7 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
         return mv;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.title) TextView vTitle;
 

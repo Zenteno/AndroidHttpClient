@@ -33,7 +33,7 @@ public class FragmentoDetalle extends Fragment {
         ButterKnife.bind(this,v);
         if(indice==null) {
             indice = MainActivity.indice;
-            if(indice ==null) return v;
+            //if(indice ==null) return v;
         }
         Signo s = MainActivity.daoSession
                 .getSignoDao().loadByRowId(indice);
