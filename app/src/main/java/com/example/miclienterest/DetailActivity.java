@@ -1,5 +1,7 @@
 package com.example.miclienterest;
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +16,10 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actividad_detalle);
 
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
         FragmentManager fm = getSupportFragmentManager();
         FragmentoDetalle fd = new FragmentoDetalle();
         fm.beginTransaction().replace(R.id.texto_signo,fd).commit();
