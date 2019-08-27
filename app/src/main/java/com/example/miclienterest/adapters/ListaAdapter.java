@@ -37,14 +37,6 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder itemsViewHolder, int i) {
 
         itemsViewHolder.vTitle.setText(items.get(i).getNombre());
-
-        itemsViewHolder.vTexto.setText(items.get(i).getAmor());
-        Glide.with(itemsViewHolder.itemView.getContext())
-                .load("https://bucket1.glanacion.com/anexos/fotos/12/3082812w1033.jpg")
-                .into(itemsViewHolder.img);
-
-
-
     }
 
     @Override
@@ -55,15 +47,11 @@ public class ListaAdapter extends RecyclerView.Adapter<ListaAdapter.MyViewHolder
         MyViewHolder mv = new MyViewHolder(itemView);
         mv.itemView.setOnClickListener(mClickListener);
         return mv;
-
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.expandable_layout) ExpandableLayout ep;
-        @BindView(R.id.imagen) ImageView img;
         @BindView(R.id.title) TextView vTitle;
-        @BindView(R.id.texto) TextView vTexto;
 
         public MyViewHolder(View v) {
             super(v);

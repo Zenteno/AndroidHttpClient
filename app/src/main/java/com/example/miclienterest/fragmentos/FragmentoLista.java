@@ -31,6 +31,7 @@ public class FragmentoLista extends Fragment {
         LinearLayoutManager llmanager = new LinearLayoutManager(getActivity());
         llmanager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(llmanager);
+
         ListaAdapter myAdapter = new ListaAdapter(ArregloSigno.getArreglo());
         myAdapter.setClickListener(mClickListener);
         rv.setAdapter(myAdapter);

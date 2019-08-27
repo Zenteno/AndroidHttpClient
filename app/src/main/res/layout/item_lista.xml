@@ -3,38 +3,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/bordes"
-    android:padding="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="20dp" />
-    <net.cachapa.expandablelayout.ExpandableLayout
-        android:id="@+id/expandable_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:el_duration="200"
-        app:el_expanded="false"
-        app:el_parallax="0.5">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/texto"
-                android:padding="16dp"
-                android:text="" />
-            <ImageView
-                android:layout_width="match_parent"
-                android:id="@+id/imagen"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-    </net.cachapa.expandablelayout.ExpandableLayout>
-
 </LinearLayout>

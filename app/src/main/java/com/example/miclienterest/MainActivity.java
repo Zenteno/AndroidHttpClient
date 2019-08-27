@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     Intent i  = new Intent(MainActivity.this, DetailActivity.class);
                     startActivity(i);
-
                 }
             }
         });
